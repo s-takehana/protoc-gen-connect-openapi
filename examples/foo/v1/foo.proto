@@ -1,0 +1,167 @@
+syntax = "proto3";
+
+package foo.v1;
+
+import "buf/validate/validate.proto";
+import "foo/v1/other_protos.proto";
+import "google/protobuf/duration.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "example/gen/foo/v1;foov1";
+
+// This is Corpus.
+enum Corpus {
+  // This is CORPUS_UNSPECIFIED.
+  CORPUS_UNSPECIFIED = 0;
+  // This is CORPUS_UNIVERSAL.
+  CORPUS_UNIVERSAL = 1;
+  // This is CORPUS_WEB.
+  CORPUS_WEB = 2;
+  // This is CORPUS_IMAGES.
+  CORPUS_IMAGES = 3;
+  // This is CORPUS_LOCAL.
+  CORPUS_LOCAL = 4;
+  // This is CORPUS_NEWS.
+  CORPUS_NEWS = 5;
+  // This is CORPUS_PRODUCTS.
+  CORPUS_PRODUCTS = 6;
+  // This is CORPUS_VIDEO.
+  CORPUS_VIDEO = 7;
+}
+
+// This is Foo1Request.
+message Foo1Request {
+  // This is Value.
+  message Value {
+    // This is url.
+    string url = 1;
+    // This is title.
+    string title = 2;
+    // This is snippets.
+    repeated string snippets = 3;
+  }
+  // This is SubMessage.
+  message SubMessage {
+    // This is message.
+    string message = 1;
+  }
+  // This is double.
+  double double = 1 [(buf.validate.field).double.lt = 10.3];
+  float float = 2 [(buf.validate.field).float.lte = -20.0]; //This is float.
+  // This is int32.
+  int32 int32 = 3 [(buf.validate.field).int32 = {
+    gt: 30,
+    lt: 35
+  }]; // This is int32 too.
+  int64 int64 = 4 [(buf.validate.field).int64 = {
+    gte: 40,
+    lt: 45
+  }];
+  uint32 uint32 = 5 [(buf.validate.field).uint32.const = 5];
+  uint64 uint64 = 6 [(buf.validate.field).uint64.const = 6];
+  sint32 sint32 = 7;
+  sint64 sint64 = 8;
+  fixed32 fixed32 = 9;
+  fixed64 fixed64 = 10;
+  sfixed32 sfixed32 = 11;
+  sfixed64 sfixed64 = 12;
+  bool bool = 13;
+  string string = 14 [(buf.validate.field).string = {
+    min_len: 1,
+    max_len: 14
+  }];
+  bytes bytes = 15;
+  Corpus corpus = 16;
+  // This is repeated_int64.
+  repeated int64 repeated_int64 = 17 [
+    (buf.validate.field).repeated.min_items = 1,
+    (buf.validate.field).repeated.max_items = 17,
+    (buf.validate.field).repeated.unique = true,
+    (buf.validate.field).repeated.items = {
+      int64: {
+        gte: 1,
+        lt: 17
+      }
+    }
+  ];
+  repeated string repeated_string = 18;
+  // This is map_string_int32.
+  map<string, int32> map_string_int32 = 19 [
+    (buf.validate.field).map.min_pairs = 2,
+    (buf.validate.field).map.max_pairs = 3
+  ];
+  map<string, Corpus> map_string_corpus = 20;
+  map<string, Value> map_string_value = 21;
+  map<int64, bool> map_int64_bool = 22;
+  oneof test_oneof {
+    // This is oneof_name.
+    string oneof_name = 23;
+    SubMessage oneof_sub_message = 24;
+  }
+  OtherMessage other_message = 25;
+}
+
+// This is Foo2Request.
+message Foo2Request {
+  google.protobuf.Duration duration = 1; //This is duration.
+  google.protobuf.Empty empty = 2;
+  google.protobuf.Timestamp timestamp = 3; // This is timestamp.
+}
+
+// This is Foo3Request.
+message Foo3Request {}
+
+// This is Foo1Response.
+message Foo1Response {
+  // This is MiddleAA.
+  message MiddleAA {
+    // This is Inner.
+    message Inner {
+      int64 ival = 1;
+      bool booly = 2;
+    }
+  }
+  // This is MiddleBB.
+  message MiddleBB {
+    // This is Inner.
+    message Inner {
+      // This is ival.
+      int32 ival = 1;
+      bool booly = 2; // This is booly.
+    }
+    // This is inner.
+    Inner inner = 1;
+  }
+  // This is middle_aa.
+  MiddleAA middle_aa = 1;
+  // This is middle_bb.
+  MiddleBB middle_bb = 2;
+}
+
+// This is Foo2Response.
+message Foo2Response {
+  string len = 1 [(buf.validate.field).string.len = 1];
+  string pattern = 2 [(buf.validate.field).string.pattern = "^[a-zA-Z]//$"];
+  string email = 3 [(buf.validate.field).string.email = true];
+  string hostname = 4 [(buf.validate.field).string.hostname = true];
+  string ipv4 = 5 [(buf.validate.field).string.ipv4 = true];
+  string ipv6 = 6 [(buf.validate.field).string.ipv6 = true];
+  string uri = 7 [(buf.validate.field).string.uri = true];
+  string uuid = 8 [(buf.validate.field).string.uuid = true];
+}
+
+// This is Foo3Response.
+message Foo3Response {}
+
+// This is FooService.
+service FooService {
+  // This is Foo1.
+  //This is a comment.
+  rpc Foo1(Foo1Request) returns (Foo1Response);
+  /*
+   * This is Foo2.
+   */
+  rpc Foo2(Foo2Request) returns (Foo2Response);
+  rpc Foo3(Foo3Request) returns (Foo3Response);
+}

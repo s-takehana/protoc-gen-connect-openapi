@@ -1,0 +1,53 @@
+components:
+    schemas:
+        DefaultErrorResponse:
+            properties:
+                code:
+                    enum:
+                        - canceled
+                        - unknown
+                        - invalid_argument
+                        - deadline_exceeded
+                        - not_found
+                        - already_exists
+                        - permission_denied
+                        - resource_exhausted
+                        - failed_precondition
+                        - aborted
+                        - out_of_range
+                        - unimplemented
+                        - internal
+                        - unavailable
+                        - data_loss
+                        - unauthenticated
+                    type: string
+                message:
+                    type: string
+            type: object
+        foo.v1.OtherMessage:
+            description: |
+                This is OtherMessage.
+            properties:
+                other_message:
+                    description: |
+                        This is other_message.
+                    type: string
+            type: object
+    securitySchemes:
+        api_key:
+            in: header
+            name: api_key
+            type: apiKey
+info:
+    contact:
+        name: API Support
+    description: This is a example.
+    title: Example API
+    version: 0.0.1
+openapi: 3.0.3
+paths: {}
+security:
+    - api_key: []
+servers:
+    - description: Development server
+      url: http://localhost

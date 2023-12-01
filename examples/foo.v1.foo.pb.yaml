@@ -1,0 +1,333 @@
+components:
+    schemas:
+        DefaultErrorResponse:
+            properties:
+                code:
+                    enum:
+                        - canceled
+                        - unknown
+                        - invalid_argument
+                        - deadline_exceeded
+                        - not_found
+                        - already_exists
+                        - permission_denied
+                        - resource_exhausted
+                        - failed_precondition
+                        - aborted
+                        - out_of_range
+                        - unimplemented
+                        - internal
+                        - unavailable
+                        - data_loss
+                        - unauthenticated
+                    type: string
+                message:
+                    type: string
+            type: object
+        foo.v1.Foo1Request:
+            description: |
+                This is Foo1Request.
+            properties:
+                bool:
+                    type: boolean
+                bytes:
+                    format: byte
+                    type: string
+                corpus:
+                    description: |
+                        This is Corpus.
+                    enum:
+                        - CORPUS_UNSPECIFIED
+                        - CORPUS_UNIVERSAL
+                        - CORPUS_WEB
+                        - CORPUS_IMAGES
+                        - CORPUS_LOCAL
+                        - CORPUS_NEWS
+                        - CORPUS_PRODUCTS
+                        - CORPUS_VIDEO
+                    type: string
+                double:
+                    description: |
+                        This is double.
+                    exclusiveMaximum: true
+                    format: double
+                    maximum: 10.3
+                    type: number
+                fixed32:
+                    format: int32
+                    type: integer
+                fixed64:
+                    format: int64
+                    type: integer
+                float:
+                    description: |
+                        This is float.
+                    format: float
+                    maximum: -20
+                    type: number
+                int32:
+                    description: |
+                        This is int32.
+                        This is int32 too.
+                    exclusiveMaximum: true
+                    exclusiveMinimum: true
+                    format: int32
+                    maximum: 35
+                    minimum: 30
+                    type: integer
+                int64:
+                    exclusiveMaximum: true
+                    format: int64
+                    maximum: 45
+                    minimum: 40
+                    type: integer
+                map_int64_bool:
+                    additionalProperties: true
+                    type: object
+                map_string_int32:
+                    additionalProperties:
+                        format: int32
+                        type: integer
+                    description: |
+                        This is map_string_int32.
+                    maxProperties: 3
+                    minProperties: 2
+                    type: object
+                oneof_name:
+                    description: |
+                        This is oneof_name.
+                    type: string
+                oneof_sub_message:
+                    properties:
+                        message:
+                            description: |
+                                This is message.
+                            type: string
+                    type: object
+                other_message:
+                    properties:
+                        other_message:
+                            description: |
+                                This is other_message.
+                            type: string
+                    type: object
+                repeated_int64:
+                    description: |
+                        This is repeated_int64.
+                    items:
+                        format: int64
+                        type: integer
+                    maxItems: 17
+                    minItems: 1
+                    type: array
+                    uniqueItems: true
+                repeated_string:
+                    items:
+                        type: string
+                    type: array
+                sfixed32:
+                    format: int32
+                    type: integer
+                sfixed64:
+                    format: int64
+                    type: integer
+                sint32:
+                    format: int32
+                    type: integer
+                sint64:
+                    format: int64
+                    type: integer
+                string:
+                    maxLength: 14
+                    minLength: 1
+                    type: string
+                uint32:
+                    format: int32
+                    maximum: 5
+                    minimum: 5
+                    type: integer
+                uint64:
+                    format: int64
+                    maximum: 6
+                    minimum: 6
+                    type: integer
+            type: object
+        foo.v1.Foo1Response:
+            description: |
+                This is Foo1Response.
+            properties:
+                middle_aa:
+                    description: |
+                        This is middle_aa.
+                    type: object
+                middle_bb:
+                    description: |
+                        This is middle_bb.
+                    properties:
+                        inner:
+                            description: |
+                                This is inner.
+                            properties:
+                                booly:
+                                    description: |
+                                        This is booly.
+                                    type: boolean
+                                ival:
+                                    description: |
+                                        This is ival.
+                                    format: int32
+                                    type: integer
+                            type: object
+                    type: object
+            type: object
+        foo.v1.Foo2Request:
+            description: |
+                This is Foo2Request.
+            properties:
+                duration:
+                    description: |
+                        This is duration.
+                    type: string
+                empty:
+                    type: object
+                timestamp:
+                    description: |
+                        This is timestamp.
+                    format: date-time
+                    type: string
+            type: object
+        foo.v1.Foo2Response:
+            description: |
+                This is Foo2Response.
+            properties:
+                email:
+                    format: email
+                    type: string
+                hostname:
+                    format: hostname
+                    type: string
+                ipv4:
+                    format: ipv4
+                    type: string
+                ipv6:
+                    format: ipv6
+                    type: string
+                len:
+                    maxLength: 1
+                    minLength: 1
+                    type: string
+                pattern:
+                    pattern: ^[a-zA-Z]//$
+                    type: string
+                uri:
+                    format: uri
+                    type: string
+                uuid:
+                    format: uuid
+                    type: string
+            type: object
+        foo.v1.Foo3Request:
+            description: |
+                This is Foo3Request.
+            type: object
+        foo.v1.Foo3Response:
+            description: |
+                This is Foo3Response.
+            type: object
+    securitySchemes:
+        api_key:
+            in: header
+            name: api_key
+            type: apiKey
+info:
+    contact:
+        name: API Support
+    description: This is a example.
+    title: Example API
+    version: 0.0.1
+openapi: 3.0.3
+paths:
+    /foo.v1.FooService/Foo1:
+        post:
+            description: |
+                This is Foo1.
+                This is a comment.
+            operationId: foov1_FooService_Foo1
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/foo.v1.Foo1Request'
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/foo.v1.Foo1Response'
+                    description: |
+                        This is Foo1Response.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DefaultErrorResponse'
+                    description: Default error response.
+            tags:
+                - foo.v1.FooService
+    /foo.v1.FooService/Foo2:
+        post:
+            description: |4
+                This is Foo2.
+            operationId: foov1_FooService_Foo2
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/foo.v1.Foo2Request'
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/foo.v1.Foo2Response'
+                    description: |
+                        This is Foo2Response.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DefaultErrorResponse'
+                    description: Default error response.
+            tags:
+                - foo.v1.FooService
+    /foo.v1.FooService/Foo3:
+        post:
+            operationId: foov1_FooService_Foo3
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/foo.v1.Foo3Request'
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/foo.v1.Foo3Response'
+                    description: |
+                        This is Foo3Response.
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DefaultErrorResponse'
+                    description: Default error response.
+            tags:
+                - foo.v1.FooService
+security:
+    - api_key: []
+servers:
+    - description: Development server
+      url: http://localhost
+tags:
+    - name: foo.v1.FooService

@@ -1,0 +1,79 @@
+components:
+    schemas:
+        DefaultErrorResponse:
+            properties:
+                code:
+                    enum:
+                        - canceled
+                        - unknown
+                        - invalid_argument
+                        - deadline_exceeded
+                        - not_found
+                        - already_exists
+                        - permission_denied
+                        - resource_exhausted
+                        - failed_precondition
+                        - aborted
+                        - out_of_range
+                        - unimplemented
+                        - internal
+                        - unavailable
+                        - data_loss
+                        - unauthenticated
+                    type: string
+                message:
+                    type: string
+            type: object
+        greet.v1.GreetRequest:
+            properties:
+                name:
+                    type: string
+            type: object
+        greet.v1.GreetResponse:
+            properties:
+                greeting:
+                    type: string
+            type: object
+    securitySchemes:
+        api_key:
+            in: header
+            name: api_key
+            type: apiKey
+info:
+    contact:
+        name: API Support
+    description: This is a example.
+    title: Example API
+    version: 0.0.1
+openapi: 3.0.3
+paths:
+    /greet.v1.GreetService/Greet:
+        post:
+            operationId: greetv1_GreetService_Greet
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/greet.v1.GreetRequest'
+            responses:
+                "200":
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/greet.v1.GreetResponse'
+                    description: ""
+                default:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/DefaultErrorResponse'
+                    description: Default error response.
+            tags:
+                - greet.v1.GreetService
+security:
+    - api_key: []
+servers:
+    - description: Development server
+      url: http://localhost
+tags:
+    - name: greet.v1.GreetService

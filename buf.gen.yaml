@@ -1,0 +1,6 @@
+version: v1
+plugins:
+  - name: connect-openapi
+    out: examples
+    opt:
+      - template=examples/protoc-gen-connect-openapi_template.yaml

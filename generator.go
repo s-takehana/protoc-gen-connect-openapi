@@ -182,12 +182,27 @@ func generateProperties(message *protogen.Message) (*openapi3.Schemas, error) {
 					return nil, err
 				}
 
-				fields[string(f.Desc.Name())] = &openapi3.SchemaRef{
-					Value: &openapi3.Schema{
-						Type:        openapi3.TypeObject,
-						Description: generateCommentsString(f.Comments),
-						Properties:  *properties,
-					},
+				if f.Desc.IsList() {
+					fields[string(f.Desc.Name())] = &openapi3.SchemaRef{
+						Value: &openapi3.Schema{
+							Type:        openapi3.TypeArray,
+							Description: generateCommentsString(f.Comments),
+							Items: &openapi3.SchemaRef{
+								Value: &openapi3.Schema{
+									Type:       openapi3.TypeObject,
+									Properties: *properties,
+								},
+							},
+						},
+					}
+				} else {
+					fields[string(f.Desc.Name())] = &openapi3.SchemaRef{
+						Value: &openapi3.Schema{
+							Type:        openapi3.TypeObject,
+							Description: generateCommentsString(f.Comments),
+							Properties:  *properties,
+						},
+					}
 				}
 			}
 

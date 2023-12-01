@@ -125,6 +125,27 @@ components:
                     items:
                         type: string
                     type: array
+                repeated_value:
+                    description: |
+                        This is repeated_value.
+                    items:
+                        properties:
+                            snippets:
+                                description: |
+                                    This is snippets.
+                                items:
+                                    type: string
+                                type: array
+                            title:
+                                description: |
+                                    This is title.
+                                type: string
+                            url:
+                                description: |
+                                    This is url.
+                                type: string
+                        type: object
+                    type: array
                 sfixed32:
                     format: int32
                     type: integer

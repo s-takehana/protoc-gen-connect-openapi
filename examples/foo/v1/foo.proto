@@ -86,20 +86,21 @@ message Foo1Request {
     }
   ];
   repeated string repeated_string = 18;
+  repeated Value repeated_value = 19; // This is repeated_value.
   // This is map_string_int32.
-  map<string, int32> map_string_int32 = 19 [
+  map<string, int32> map_string_int32 = 20 [
     (buf.validate.field).map.min_pairs = 2,
     (buf.validate.field).map.max_pairs = 3
   ];
-  map<string, Corpus> map_string_corpus = 20;
-  map<string, Value> map_string_value = 21;
-  map<int64, bool> map_int64_bool = 22;
+  map<string, Corpus> map_string_corpus = 21;
+  map<string, Value> map_string_value = 22;
+  map<int64, bool> map_int64_bool = 23;
   oneof test_oneof {
     // This is oneof_name.
-    string oneof_name = 23;
-    SubMessage oneof_sub_message = 24;
+    string oneof_name = 24;
+    SubMessage oneof_sub_message = 25;
   }
-  OtherMessage other_message = 25;
+  OtherMessage other_message = 26;
 }
 
 // This is Foo2Request.

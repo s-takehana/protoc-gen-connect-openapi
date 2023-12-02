@@ -52,6 +52,8 @@ message Foo1Request {
     string message = 1;
     // This is circular_message.
     CircularMessage circular_message = 2;
+    // This is repeated_circular_message.
+    repeated CircularMessage repeated_circular_message = 3;
   }
   // This is double.
   double double = 1 [(buf.validate.field).double.lt = 10.3];

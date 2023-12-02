@@ -45,6 +45,10 @@ components:
                             description: |
                                 This is message.
                             type: string
+                        repeated_circular_message:
+                            description: |
+                                This is repeated_circular_message.
+                            type: array
                     type: object
                 corpus:
                     description: |

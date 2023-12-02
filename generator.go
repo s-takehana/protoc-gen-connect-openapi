@@ -177,9 +177,14 @@ func generateProperties(message *protogen.Message) (*openapi3.Schemas, error) {
 					},
 				}
 			case string(f.Parent.Desc.FullName()):
+				t := openapi3.TypeObject
+				if f.Desc.IsList() {
+					t = openapi3.TypeArray
+				}
+
 				fields[string(f.Desc.Name())] = &openapi3.SchemaRef{
 					Value: &openapi3.Schema{
-						Type:        openapi3.TypeObject,
+						Type:        t,
 						Description: generateCommentsString(f.Comments),
 					},
 				}

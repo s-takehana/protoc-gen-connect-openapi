@@ -46,6 +46,13 @@ message Foo1Request {
     // This is message.
     string message = 1;
   }
+  // This is CircularMessage.
+  message CircularMessage {
+    // This is message.
+    string message = 1;
+    // This is circular_message.
+    CircularMessage circular_message = 2;
+  }
   // This is double.
   double double = 1 [(buf.validate.field).double.lt = 10.3];
   float float = 2 [(buf.validate.field).float.lte = -20.0]; //This is float.
@@ -101,6 +108,7 @@ message Foo1Request {
     SubMessage oneof_sub_message = 25;
   }
   OtherMessage other_message = 26;
+  CircularMessage circular_message = 27; //This is circular_message.
 }
 
 // This is Foo2Request.

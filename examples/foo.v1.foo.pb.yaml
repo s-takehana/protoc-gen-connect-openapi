@@ -33,6 +33,19 @@ components:
                 bytes:
                     format: byte
                     type: string
+                circular_message:
+                    description: |
+                        This is circular_message.
+                    properties:
+                        circular_message:
+                            description: |
+                                This is circular_message.
+                            type: object
+                        message:
+                            description: |
+                                This is message.
+                            type: string
+                    type: object
                 corpus:
                     description: |
                         This is Corpus.

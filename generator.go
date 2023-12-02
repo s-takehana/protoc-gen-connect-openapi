@@ -176,6 +176,13 @@ func generateProperties(message *protogen.Message) (*openapi3.Schemas, error) {
 						Description: generateCommentsString(f.Comments),
 					},
 				}
+			case string(f.Parent.Desc.FullName()):
+				fields[string(f.Desc.Name())] = &openapi3.SchemaRef{
+					Value: &openapi3.Schema{
+						Type:        openapi3.TypeObject,
+						Description: generateCommentsString(f.Comments),
+					},
+				}
 			default:
 				properties, err := generateProperties(f.Message)
 				if err != nil {
